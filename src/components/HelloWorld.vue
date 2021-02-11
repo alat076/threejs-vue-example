@@ -32,15 +32,15 @@ export default {
       // add camera
       const fov = 60 // Field of view
       const aspect = this.container.clientWidth / this.container.clientHeight
-      const near = 0.1 // the near clipping plane
-      const far = 30 // the far clipping plane
+      const near = 0.1 // the near clipping plane, 0.1
+      const far = 500 // the far clipping plane, 30
       const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
-      camera.position.set(0, 5, 10)
+      camera.position.set(0, -360, 100) // (x, y, z) = (0, 5, 10)
       this.camera = camera
 
       // create scene
       this.scene = new THREE.Scene()
-      this.scene.background = new THREE.Color('skyblue')
+      this.scene.background = new THREE.Color('grey')
 
       // add lights
       const ambientLight = new THREE.HemisphereLight(
@@ -73,6 +73,15 @@ export default {
 
       loader.load(
         '/three-assets/RobotExpressive.glb',
+        gltf => {
+          this.scene.add(gltf.scene)
+        },
+        undefined,
+        undefined
+      )
+
+      loader.load(
+        '/three-assets/Lung/smoker_and_asthmatic_flow_1.glb',
         gltf => {
           this.scene.add(gltf.scene)
         },
